@@ -91,82 +91,113 @@ namespace SyncProjectInfo
             }
         }
 
-        public static int UpdateProjectInfo(int PIItemID)
+        private static bool CheckSyncOrNot(int PIItemID)
         {
             Project project = LoadProjectInfo(PIItemID);
-            using (GXX_DS_0312Entities dbcontext = new GXX_DS_0312Entities())
+            using (GXX_DS_0312Entities dbcontext= new GXX_DS_0312Entities())
             {
-                //更新项目的信息
-                //PageNumber=1001 
-                CustomerFieldTrackExt2 pageNum1001 = new CustomerFieldTrackExt2()
-            {
-                ProjectID = 502,
-                IssueID = project.HiddenTaskID,
-                PageNumber=1001,
-                Custom_3 = project.ProjectCode,
-                Custom_2 = project.ProjectTtile,
-                Custom_9 = project.ProjectStatus,
-                Custom_7 = project.ProjectLevel,
-                Custom_8 = project.DevWay,
-                Custom_6 = project.ProjectType,
-                Custom_11 = project.ProjectGole,
-                Custom_12 = project.ProjectDesc
-            };
-                
-                //PageNumber=1002 
-                CustomerFieldTrackExt2 pageNum1002 = new CustomerFieldTrackExt2()
-            {
-                ProjectID = 502,
-                IssueID = project.HiddenTaskID,
-                PageNumber=1002,
-                Custom_4 = project.ProductName,
-                Custom_2=project.PlanStartDate,
-                Custom_3=project.PlanFinishDate,
-                Custom_1=project.ProjectManager,
-                Custom_5=project.ProductManager,
-                Custom_9=project.ContractMoney,
-                Custom_7=project.DevManager,
-                Custom_8=project.TestManager
-            };
-
-
-                //PageNumber=1003
-                CustomerFieldTrackExt2 pageNum1003 = new CustomerFieldTrackExt2()
-            {
-                ProjectID = 502,
-                IssueID = project.HiddenTaskID,
-                PageNumber=1003,
-                Custom_2 = project.ProductName,
-                Custom_9=project.BelongTo,
-                Custom_4=project.DevModle,
-                Custom_7=project.ScoreMoney,
-                Custom_5=project.TransfterProject,
-                Custom_3=project.Level,
-                Custom_6=project.PatchDeliver
-            };
-
-                //项目团队成员多行文本框 pagenumber=15 
-                CustomerFieldTrackExt2 membertext = new CustomerFieldTrackExt2()
+                int minID = (from c in dbcontext.Bug where c.ProjectID == 502 && c.CrntBugTypeID == 227 && c.SubProjectID == project.ProjectSpaceID select c.BugID).Min<int>();
+                if (minID == PIItemID)
                 {
-                    ProjectID = 502,
-                    IssueID =PIItemID,
-                    PageNumber = 15,
-                    Custom_5 = project.ProjectMembersText
-                };
-
-                UpdateMemberList(PIItemID);//比较当前项目的已选成员列表和最新的成员列表，进行资源的更新
-
-                dbcontext.Entry<CustomerFieldTrackExt2>(pageNum1001).State = EntityState.Modified;
-                dbcontext.Entry<CustomerFieldTrackExt2>(pageNum1002).State = EntityState.Modified;
-                dbcontext.Entry<CustomerFieldTrackExt2>(pageNum1003).State = EntityState.Modified;
-                dbcontext.Entry<CustomerFieldTrackExt2>(membertext).State = EntityState.Modified;
-                return  dbcontext.SaveChanges();
-            
+                    return true;
+                }
+                else
+                    return false;
             }
+    
         }
+        /// <summary>
+        /// 更新项目的属性页以及资源
+        /// </summary>
+        /// <param name="PIItemID"></param>
+        /// <returns></returns>
+        public static int UpdateProjectInfo(int PIItemID)
+        {
+           
+            bool isNeedSync = CheckSyncOrNot(PIItemID);
+            if (isNeedSync)
+            {
+                Project project = LoadProjectInfo(PIItemID);
+                using (GXX_DS_0312Entities dbcontext = new GXX_DS_0312Entities())
+                {
+                    //更新项目的信息
+                    //PageNumber=1001 
+                    CustomerFieldTrackExt2 pageNum1001 = new CustomerFieldTrackExt2()
+                    {
+                        ProjectID = 502,
+                        IssueID = project.HiddenTaskID,
+                        PageNumber = 1001,
+                        Custom_3 = project.ProjectCode,
+                        Custom_2 = project.ProjectTtile,
+                        Custom_9 = project.ProjectStatus,
+                        Custom_7 = project.ProjectLevel,
+                        Custom_8 = project.DevWay,
+                        Custom_6 = project.ProjectType,
+                        Custom_11 = project.ProjectGole,
+                        Custom_12 = project.ProjectDesc
+                    };
+
+                    //PageNumber=1002 
+                    CustomerFieldTrackExt2 pageNum1002 = new CustomerFieldTrackExt2()
+                    {
+                        ProjectID = 502,
+                        IssueID = project.HiddenTaskID,
+                        PageNumber = 1002,
+                        Custom_4 = project.ProductName,
+                        Custom_2 = project.PlanStartDate,
+                        Custom_3 = project.PlanFinishDate,
+                        Custom_1 = project.ProjectManager,
+                        Custom_5 = project.ProductManager,
+                        Custom_9 = project.ContractMoney,
+                        Custom_7 = project.DevManager,
+                        Custom_8 = project.TestManager
+                    };
+
+
+                    //PageNumber=1003
+                    CustomerFieldTrackExt2 pageNum1003 = new CustomerFieldTrackExt2()
+                    {
+                        ProjectID = 502,
+                        IssueID = project.HiddenTaskID,
+                        PageNumber = 1003,
+                        Custom_2 = project.ProductName,
+                        Custom_9 = project.BelongTo,
+                        Custom_4 = project.DevModle,
+                        Custom_7 = project.ScoreMoney,
+                        Custom_5 = project.TransfterProject,
+                        Custom_3 = project.Level,
+                        Custom_6 = project.PatchDeliver
+                    };
+
+                    //项目团队成员多行文本框 pagenumber=15 
+                    CustomerFieldTrackExt2 membertext = new CustomerFieldTrackExt2()
+                    {
+                        ProjectID = 502,
+                        IssueID = PIItemID,
+                        PageNumber = 15,
+                        Custom_5 = project.ProjectMembersText
+                    };
+
+                    UpdateMemberList(PIItemID);//比较当前项目的已选成员列表和最新的成员列表，进行资源的更新
+
+                    dbcontext.Entry<CustomerFieldTrackExt2>(pageNum1001).State = EntityState.Modified;
+                    dbcontext.Entry<CustomerFieldTrackExt2>(pageNum1002).State = EntityState.Modified;
+                    dbcontext.Entry<CustomerFieldTrackExt2>(pageNum1003).State = EntityState.Modified;
+                    dbcontext.Entry<CustomerFieldTrackExt2>(membertext).State = EntityState.Modified;
+                    return dbcontext.SaveChanges();
+                }
+            }
+            return 0;
+          
+            
+           
+        }
+
+      
 
         /// <summary>
         /// 比较当前项目的已选成员列表和最新的成员列表，进行资源的更新
+        /// 调用现有的触发器实现同步更新到缺陷，开发等模块中
         /// </summary>
         private static void UpdateMemberList(int PIItemID)
         {
