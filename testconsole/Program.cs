@@ -14,10 +14,10 @@ namespace testconsole
     {
         static void Main(string[] args)
         {
-            Project project = new Project(); 
-            project= ProjectTransfer.LoadProjectInfo(5224); //Get project info via task id
+          //  Project project = new Project(); 
+          //  project= ProjectTransfer.LoadProjectInfo(5422); //Get project info via task id
             //update project to project space tab and update project team resource
-
+         int result=   ProjectTransfer.UpdateProjectInfo(5422);
             Console.ReadLine();
         }
     }

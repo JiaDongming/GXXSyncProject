@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="549342b0de824caba368addad5a803d2" Name="Diagram1" ZoomLevel="22">
+      <Diagram DiagramId="549342b0de824caba368addad5a803d2" Name="Diagram1" ZoomLevel="16">
         <EntityTypeShape EntityType="GXX_DS_0312Model.Bug" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GXX_DS_0312Model.BugHTML" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GXX_DS_0312Model.BugSelectionInfo" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
@@ -15,6 +15,7 @@
         <EntityTypeShape EntityType="GXX_DS_0312Model.LogIn" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GXX_DS_0312Model.SubProject" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GXX_DS_0312Model.SubProjectTree" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GXX_DS_0312Model.SubProjectOwners" Width="1.5" PointX="3.375" PointY="12.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

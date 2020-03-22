@@ -35,5 +35,6 @@ namespace SyncProjectInfo
         public virtual DbSet<LogIn> LogIn { get; set; }
         public virtual DbSet<SubProject> SubProject { get; set; }
         public virtual DbSet<SubProjectTree> SubProjectTree { get; set; }
+        public virtual DbSet<SubProjectOwners> SubProjectOwners { get; set; }
     }
 }

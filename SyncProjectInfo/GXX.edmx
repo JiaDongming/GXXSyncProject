@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="GXX_DS_0312Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="GXX_DS_0312Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Bug">
           <Key>
             <PropertyRef Name="ProjectID" />
@@ -560,6 +560,18 @@
           <Property Name="ProgressDescription" Type="ntext" />
           <Property Name="ParentProjectSpace" Type="int" />
         </EntityType>
+        <EntityType Name="SubProjectOwners">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+            <PropertyRef Name="SubProjectID" />
+            <PropertyRef Name="TeamMemberID" />
+          </Key>
+          <Property Name="ProjectID" Type="int" Nullable="false" />
+          <Property Name="SubProjectID" Type="int" Nullable="false" />
+          <Property Name="TeamMemberID" Type="int" Nullable="false" />
+          <Property Name="OwnerType" Type="int" />
+          <Property Name="Unit" Type="int" />
+        </EntityType>
         <EntityType Name="SubProjectTree">
           <Key>
             <PropertyRef Name="ProjectID" />
@@ -581,10 +593,10 @@
           <EntitySet Name="CustomerFieldTrackExt2" EntityType="Self.CustomerFieldTrackExt2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LogIn" EntityType="Self.LogIn" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubProject" EntityType="Self.SubProject" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubProjectOwners" EntityType="Self.SubProjectOwners" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubProjectTree" EntityType="Self.SubProjectTree" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="GXX_DS_0312Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1165,7 +1177,20 @@
           <EntitySet Name="LogIn" EntityType="Self.LogIn" />
           <EntitySet Name="SubProject" EntityType="Self.SubProject" />
           <EntitySet Name="SubProjectTree" EntityType="Self.SubProjectTree" />
+          <EntitySet Name="SubProjectOwners" EntityType="GXX_DS_0312Model.SubProjectOwners" />
         </EntityContainer>
+        <EntityType Name="SubProjectOwners">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+            <PropertyRef Name="SubProjectID" />
+            <PropertyRef Name="TeamMemberID" />
+          </Key>
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <Property Name="SubProjectID" Type="Int32" Nullable="false" />
+          <Property Name="TeamMemberID" Type="Int32" Nullable="false" />
+          <Property Name="OwnerType" Type="Int32" />
+          <Property Name="Unit" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1728,6 +1753,17 @@
                 <ScalarProperty Name="ParentID" ColumnName="ParentID" />
                 <ScalarProperty Name="ChildID" ColumnName="ChildID" />
                 <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubProjectOwners">
+            <EntityTypeMapping TypeName="GXX_DS_0312Model.SubProjectOwners">
+              <MappingFragment StoreEntitySet="SubProjectOwners">
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="OwnerType" ColumnName="OwnerType" />
+                <ScalarProperty Name="TeamMemberID" ColumnName="TeamMemberID" />
+                <ScalarProperty Name="SubProjectID" ColumnName="SubProjectID" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -31,19 +31,19 @@ namespace SyncProjectInfo
         public string PatchDeliver { get; set; }//批量发货
         public string ProjectMembers { get; set; } //项目下拉成员的文本
         public List<int> ProjectMemberList { get; set ; }
-        //public List<LogIn> SelectedProjecMembers;
+        public List<LogIn> SelectedProjecMembers;
         public string ProjectGole { get; set; }//项目目标
         public string ProjectDesc { get; set; }//项目描述
         public string ProjectMembersText { get; set; }//项目团队成员文本框
 
 
 
-        public int? HiddenTaskID { get; set; }
+        public int HiddenTaskID { get; set; }
         public int? ProjectSpaceID { get; set; }
         
         public Project()
         {
-           // SelectedProjecMembers = new List<LogIn>();
+            SelectedProjecMembers = new List<LogIn>();
             ProjectMemberList = new List<int>();
         }
 
