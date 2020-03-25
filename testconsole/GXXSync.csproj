@@ -7,8 +7,8 @@
     <ProjectGuid>{82FBFF6D-45C2-4639-ACEE-240A8A4E3CC5}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>testconsole</RootNamespace>
-    <AssemblyName>testconsole</AssemblyName>
+    <RootNamespace>GXXSync</RootNamespace>
+    <AssemblyName>GXXSync</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
