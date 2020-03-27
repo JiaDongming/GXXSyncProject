@@ -70,7 +70,10 @@ namespace SyncProjectInfo
         public string ProjectDesc { get; set; }//项目描述
         [DisplayName("项目团队成员文本框")]
         public string ProjectMembersText { get; set; }//项目团队成员文本框
-
+        [DisplayName("商机编号")]
+        public string ShangJiID { get; set; }//商机编号
+        [DisplayName("结束时间")]
+        public string EndDate { get; set; }//结束时间
 
 
         public int HiddenTaskID { get; set; }

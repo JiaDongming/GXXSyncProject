@@ -81,7 +81,10 @@ namespace SyncProjectInfo
                        project.Level = (from a in customFields2 where a.PageNumber == 15 select a.Custom_1).SingleOrDefault();//重要程度
                         project.PatchDeliver = (from a in customFields2 where a.PageNumber == 13 select a.Custom_8).SingleOrDefault();//批量发货
                         project.ProjectMembers = (from a in customFields2 where a.PageNumber == 15 select a.Custom_5).SingleOrDefault();//项目团队成员(下拉框文本)
-                       
+
+                        project.ShangJiID = (from a in customFields2 where a.PageNumber == 15 select a.Custom_6).SingleOrDefault();//商机编号
+                        project.EndDate = (from a in customFields2 where a.PageNumber == 15 select a.Custom_7).SingleOrDefault();//结束时间
+
                         project.ProjectMemberList = (from members in dbcontext.BugSelectionInfo where members.ProjectID == 502 && members.BugID == PIItemID && members.FieldID == 12505 select members.FieldSelectionID).ToList<int>();  //项目团队成员下拉列表
                         if (project.ProjectMemberList.Count > 0)
                         {
@@ -164,7 +167,8 @@ namespace SyncProjectInfo
                         Custom_8 = project.DevWay,//开发方式
                         Custom_6 = project.ProjectType,
                         Custom_11 = project.ProjectGole,
-                        Custom_12 = project.ProjectDesc
+                        Custom_12 = project.ProjectDesc,
+                        Custom_4= project.ShangJiID//商机编号
                     };
 
                     //PageNumber=1002 
@@ -196,7 +200,8 @@ namespace SyncProjectInfo
                         Custom_7 = project.ScoreMoney,
                         Custom_5 = project.TransfterProject,
                         Custom_3 = project.Level,//重要程度
-                        Custom_6 = project.PatchDeliver
+                        Custom_6 = project.PatchDeliver,
+                        Custom_8 = project.EndDate//结束时间
                     };
 
                     //开发模式,重要程度,合同额（万元）
@@ -328,7 +333,7 @@ namespace SyncProjectInfo
                 
                     };
 
-                    UpdateMemberList(PIItemID);//比较当前项目的已选成员列表和最新的成员列表，进行资源的更新
+               //     UpdateMemberList(PIItemID);//比较当前项目的已选成员列表和最新的成员列表，进行资源的更新
 
                     //PageNumber=1001 
                     if (dbcontext.CustomerFieldTrackExt2.Any<CustomerFieldTrackExt2>(p=>p.ProjectID==502&&p.IssueID== project.HiddenTaskID&&p.PageNumber==1001))
