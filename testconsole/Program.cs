@@ -25,7 +25,7 @@ namespace testconsole
 
 
                 int result = ProjectTransfer.UpdateProjectInfo(Convert.ToInt32(args[0]));
-               // int result = ProjectTransfer.UpdateProjectInfo(5422);
+             //  int result = ProjectTransfer.UpdateProjectInfo(5422);
                 if (result>0)
                 {
                     LogHelper.WriteLog("更新成功");

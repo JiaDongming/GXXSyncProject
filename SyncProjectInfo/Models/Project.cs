@@ -47,6 +47,7 @@ namespace SyncProjectInfo
         public string DevManager { get; set; }//开发负责人
      
         public int DevManagerID { get; set; }//开发负责人编号
+        public List<int> DevManagerIDs { get; set; }
         [DisplayName("贡献值")]
         public string ScoreMoney { get; set; }//贡献值
         [DisplayName("项目类型")]
@@ -54,16 +55,48 @@ namespace SyncProjectInfo
         [DisplayName("测试负责人")]
         public string TestManager { get; set; }//测试负责人
         public int TestManagerID { get; set; }//测试负责人编号
+        public List<int> TestManagerIDs { get; set; }
+
+        [DisplayName("需求分析师")]
+        public string RequirementAnalyst { get; set; }
+        public List<int> RequirementAnalystIDs { get; set; }
+
+
+        [DisplayName("开发工程师")]
+        public string DevEngineer { get; set; }
+        public List<int> DevEngineerIDs { get; set; }
+
+
+        [DisplayName("测试工程师")]
+        public string TestEngineer { get; set; }
+        public List<int> TestEngineerIDs { get; set; }
+
+        [DisplayName("质量管理员")]
+        public string QualityManager { get; set; }
+        public List<int> QualityManagerIDs { get; set; }
+
+        [DisplayName("配置管理员")]
+        public string ConfigManager { get; set; }
+        public List<int> ConfigManagerIDs { get; set; }
+
+
         [DisplayName("转产项目")]
         public string TransfterProject { get; set; }//转产项目
         [DisplayName("重要程度")]
         public string Level { get; set; }//重要程度
         [DisplayName("批量发货")]
         public string PatchDeliver { get; set; }//批量发货
-        [DisplayName("项目下拉成员的文本")]
-        public string ProjectMembers { get; set; } //项目下拉成员的文本
+        [DisplayName("其他成员")]
+        public string ProjectMembers { get; set; } //项目下拉成员的文本(其他成员)
         public List<int> ProjectMemberList { get; set ; }
         public List<LogIn> SelectedProjecMembers;
+
+
+        public string ProjectResourceText { get; set; } //项目资源（合并所有人员）
+        public List<int> ProjectResourceIDs { get; set; }
+        public List<LogIn> ProjectResourceMembers;
+
+
         [DisplayName("项目目标")]
         public string ProjectGole { get; set; }//项目目标
         [DisplayName("项目描述")]
@@ -79,12 +112,25 @@ namespace SyncProjectInfo
         public int HiddenTaskID { get; set; }
         [DisplayName("当前Techexcel的项目编号")]
         public int? ProjectSpaceID { get; set; }
-        
+
+        public string ProjectSpaceTitle { get; set; }
+
         public Project()
         {
             SelectedProjecMembers = new List<LogIn>();
             ProjectMemberList = new List<int>();
+            DevManagerIDs = new List<int>();
+            TestManagerIDs = new List<int>();
+            RequirementAnalystIDs = new List<int>();
+            DevEngineerIDs = new List<int>();
+            TestEngineerIDs = new List<int>();
+            QualityManagerIDs = new List<int>();
+            ConfigManagerIDs = new List<int>();
+            ProjectResourceIDs = new List<int>();
+            ProjectResourceMembers = new List<LogIn>();
         }
+
+
 
         public override string ToString()
         {
