@@ -118,13 +118,14 @@ namespace SyncProjectInfo
                         //所有人员
                         if (project.ProjectManager!=null && project.ProjectManager.Length!=0 )
                         {
-                            project.ProjectResourceText = "项目经理：" + project.ProjectManager + newLine;
+                            //project.ProjectResourceText = "项目经理：" + project.ProjectManager + newLine;
+                            project.ProjectResourceText = "项目经理：" + project.ProjectManager.Split(' ')[0] + newLine;
                             project.ProjectResourceIDs.Add(project.ProjectManagerID);
                         }
 
                         if (project.ProductManager != null && project.ProductManager.Length != 0)
                         {
-                            project.ProjectResourceText =project.ProjectResourceText + "产品经理：" + project.ProductManager + newLine;
+                            project.ProjectResourceText =project.ProjectResourceText + "产品经理：" + project.ProductManager.Split(' ')[0] + newLine;
                             project.ProjectResourceIDs.Add(project.ProductManagerID);
                         }
 
