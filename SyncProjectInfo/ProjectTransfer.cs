@@ -336,6 +336,16 @@ namespace SyncProjectInfo
                     //    Custom_4=project.ContractMoney
                     //};
 
+                    //项目经理ID 更新到 space的primary owner上
+                    SubProject currentProjectSpace = new SubProject()
+                    {
+                        ProjectID = 502,
+                        SubProjectID = (int)project.ProjectSpaceID,
+                        CurrentOwner = project.ProjectManagerID
+                    };
+                    dbcontext.Entry<SubProject>(currentProjectSpace).State = EntityState.Modified;
+
+
                     BugSelectionInfo projectManager = new BugSelectionInfo()//1000101  --项目经理ID
                     {
                         ProjectID = 502,
