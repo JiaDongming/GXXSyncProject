@@ -129,43 +129,49 @@ namespace SyncProjectInfo
                             project.ProjectResourceIDs.Add(project.ProductManagerID);
                         }
 
-                        if (project.DevManager != null && project.DevManager.Length != 0)
+                        if (project.RequirementAnalystIDs.Count > 0)
+                        {
+                            project.ProjectResourceText = project.ProjectResourceText + "需求分析师：" + GetMemberText(project.RequirementAnalystIDs) + newLine;
+                            project.ProjectResourceIDs.AddRange(project.RequirementAnalystIDs);
+                        }
+
+                        if (project.DevManagerIDs.Count>0)
                         {
                             project.ProjectResourceText = project.ProjectResourceText + "开发负责人：" + GetMemberText (project.DevManagerIDs) + newLine;
                             project.ProjectResourceIDs.AddRange(project.DevManagerIDs);
                         }
 
-                        if (project.DevEngineer != null && project.DevEngineer.Length != 0)
+                        if (project.DevEngineerIDs.Count> 0)
                         {
                             project.ProjectResourceText = project.ProjectResourceText + "开发工程师：" + GetMemberText(project.DevEngineerIDs) + newLine;
                             project.ProjectResourceIDs.AddRange(project.DevEngineerIDs);
                         }
 
-                        if (project.TestManager != null && project.TestManager.Length != 0)
+                        if (project.TestManagerIDs.Count> 0)
                         {
                             project.ProjectResourceText = project.ProjectResourceText + "测试负责人：" + GetMemberText(project.TestManagerIDs) + newLine;
                             project.ProjectResourceIDs.AddRange(project.TestManagerIDs);
                         }
 
-                        if (project.TestEngineer != null && project.TestEngineer.Length != 0)
+                        if (project.TestEngineerIDs.Count> 0)
                         {
                             project.ProjectResourceText = project.ProjectResourceText + "测试工程师：" + GetMemberText(project.TestEngineerIDs) + newLine;
                             project.ProjectResourceIDs.AddRange(project.TestEngineerIDs);
                         }
 
-                        if (project.QualityManager != null && project.QualityManager.Length != 0)
+                        if (project.QualityManagerIDs.Count> 0)
                         {
                             project.ProjectResourceText = project.ProjectResourceText + "质量管理员：" + GetMemberText(project.QualityManagerIDs) + newLine;
                             project.ProjectResourceIDs.AddRange(project.QualityManagerIDs);
                         }
 
-                        if (project.ConfigManager != null && project.ConfigManager.Length != 0)
+                        if (project.ConfigManagerIDs.Count> 0)
                         {
                             project.ProjectResourceText = project.ProjectResourceText + "配置管理员：" + GetMemberText(project.ConfigManagerIDs) + newLine;
                             project.ProjectResourceIDs.AddRange(project.ConfigManagerIDs);
                         }
 
-                        if (project.ProjectMembers != null && project.ProjectMembers.Length != 0)
+                        if (project.ProjectMemberList.Count> 0)
                         {
                             project.ProjectResourceText = project.ProjectResourceText + "其他成员：" + GetMemberText(project.ProjectMemberList) + newLine;
                             project.ProjectResourceIDs.AddRange(project.ProjectMemberList);
@@ -337,13 +343,23 @@ namespace SyncProjectInfo
                     //};
 
                     //项目经理ID 更新到 space的primary owner上
-                    SubProject currentProjectSpace = new SubProject()
+                    //SubProject currentProjectSpace = new SubProject()
+                    //{
+                    //    ProjectID = 502,
+                    //    SubProjectID = (int)project.ProjectSpaceID,
+                    //    CurrentOwner = project.ProjectManagerID
+                    //};
+                    //dbcontext.Entry<SubProject>(currentProjectSpace).State = EntityState.Modified;
+
+                    //项目经理ID 更新到 space的primary owner上
+                    string spaceownersql = "Update SubProject Set  CurrentOwner=@CurrentOwner where ProjectID=502 and SubProjectID=@SubProjectID";
+                    SqlParameter[] ownerparam = new SqlParameter[]
                     {
-                        ProjectID = 502,
-                        SubProjectID = (int)project.ProjectSpaceID,
-                        CurrentOwner = project.ProjectManagerID
+                          new SqlParameter("@CurrentOwner",project.ProjectManagerID),
+                        new SqlParameter("@SubProjectID",(int)project.ProjectSpaceID),
+                     
                     };
-                    dbcontext.Entry<SubProject>(currentProjectSpace).State = EntityState.Modified;
+                    dbcontext.Database.ExecuteSqlCommand(spaceownersql, ownerparam);
 
 
                     BugSelectionInfo projectManager = new BugSelectionInfo()//1000101  --项目经理ID
