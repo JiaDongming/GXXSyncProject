@@ -104,6 +104,14 @@ namespace SyncProjectInfo
                         project.ConfigManager = (from a in customFields2 where a.PageNumber == 16 select a.Custom_4).SingleOrDefault();//配置管理员   FieldID=12604 page=16 Custom_4
                         project.ConfigManagerIDs = (from ids in bugselectionInfo where ids.FieldID == 12604 select ids.FieldSelectionID).ToList();//配置管理员编号
 
+                        //新增的5个字段
+                        project.PlanTransferTime = (from a in customFields2 where a.PageNumber == 16 select a.Custom_6).SingleOrDefault();//预转产时间
+                        project.ActualTransferTime = (from a in customFields2 where a.PageNumber == 16 select a.Custom_7).SingleOrDefault();//实际转产时间
+                        project.PlanDelistTime = (from a in customFields2 where a.PageNumber == 16 select a.Custom_8).SingleOrDefault();//预退市时间
+                        project.ActualDelistTime = (from a in customFields2 where a.PageNumber == 17 select a.Custom_1).SingleOrDefault();//实际退市时间
+                        project.ERPCode = (from a in customFields2 where a.PageNumber == 17 select a.Custom_2).SingleOrDefault();//ERP编号
+
+
                         //（其他成员）项目团队成员下拉列表
                         //project.ProjectMemberList = (from members in dbcontext.BugSelectionInfo where members.ProjectID == 502 && members.BugID == PIItemID && members.FieldID == 12505 select members.FieldSelectionID).ToList<int>();  
                         //if (project.ProjectMemberList.Count > 0)
@@ -326,8 +334,14 @@ namespace SyncProjectInfo
                         ProjectID = 502,
                         IssueID = project.HiddenTaskID,
                         PageNumber = 1004,
-                        Custom_1= project.DevManager,//开发负责人（多选）
+                        Custom_1 = project.DevManager,//开发负责人（多选）
                         Custom_2 = project.TestManager,//测试负责人（多选）
+                        Custom_3 = project.PlanTransferTime,//预转产时间
+                        Custom_4=project.ActualTransferTime,//实际转产时间
+                        Custom_5=project.PlanDelistTime,//预退市时间
+                        Custom_6=project.ActualDelistTime,//实际退市时间
+                        Custom_7=project.ERPCode//ERP编号
+
 
                     };
 

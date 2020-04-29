@@ -115,6 +115,18 @@ namespace SyncProjectInfo
 
         public string ProjectSpaceTitle { get; set; }
 
+        //新增的5个同步字段
+        [DisplayName("预转产时间")]
+        public string PlanTransferTime { get; set; }
+        [DisplayName("实际转产时间")]
+        public string ActualTransferTime { get; set; }
+        [DisplayName("预退市时间")]
+        public string PlanDelistTime { get; set; }
+        [DisplayName("实际退市时间")]
+        public string ActualDelistTime { get; set; }
+        [DisplayName("ERP编号")]
+        public string ERPCode { get; set; }
+
         public Project()
         {
             SelectedProjecMembers = new List<LogIn>();
